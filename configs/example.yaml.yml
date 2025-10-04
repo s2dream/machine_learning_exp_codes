@@ -1,0 +1,92 @@
+# configs/example.yaml
+work_dir: ./work_dir
+
+model:
+  input_dim: 16          # 시퀀스의 피처 차원(F)
+  d_model: 256
+  nhead: 8
+  num_layers: 4
+  dim_feedforward: 512
+  dropout: 0.1
+  activation: gelu
+  norm_first: true
+  use_cls_token: true
+  pooling: mean          # mean | cls | last
+  max_len: 4096
+  output_dim: 1
+  input_norm: false
+
+train:
+  seed: 42
+  device: auto
+  epochs: 20
+  log_interval: 50
+  amp: true
+  amp_dtype: bf16        # bf16 | fp16
+  grad_accum_steps: 1
+  clip_grad_norm: 1.0
+  cudnn_benchmark: true
+  save_every: 1
+
+optimizer:
+  name: AdamW            # AdamW | Adam | SGD | RAdam | Adagrad
+  lr: 5.0e-4
+  weight_decay: 1.0e-2
+  betas: [0.9, 0.999]
+  momentum: 0.9
+  nesterov: false
+
+scheduler:
+  name: cosine           # none | lambda | step | multistep | cosine | cosine_restart | onecycle | exponential | reduce_on_plateau
+  T_max: 20
+  eta_min: 1.0e-6
+  warmup_steps: 400
+
+loss:
+  name: mse              # mse | smoothl1 | l1
+  smoothl1_beta: 1.0
+
+ddp:
+  backend: nccl
+  find_unused_parameters: false
+
+data:
+  train:
+    path: ./data/train.csv
+    filetype: csv
+    sequence_col: sequence    # 예: "[[0.1,0.2,...],[...],...]"
+    target_col: target        # 예: "3.14"
+    id_col: id
+    batch_size: 64
+    num_workers: 4
+    shuffle: true
+    drop_last: false
+    pin_memory: true
+    pad_value: 0.0
+    persistent_workers: true
+  val:
+    path: ./data/val.csv
+    filetype: csv
+    sequence_col: sequence
+    target_col: target
+    id_col: id
+    batch_size: 128
+    num_workers: 4
+    shuffle: false
+    drop_last: false
+    pin_memory: true
+    pad_value: 0.0
+    persistent_workers: true
+  test:
+    path: ./data/test.csv
+    filetype: csv
+    sequence_col: sequence
+    target_col: null          # 테스트에는 타깃이 없을 수 있음
+    id_col: id
+    batch_size: 128
+    num_workers: 4
+    shuffle: false
+    drop_last: false
+    pin_memory: true
+    pad_value: 0.0
+    persistent_workers: true
