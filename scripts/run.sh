@@ -5,7 +5,7 @@ torchrun --standalone --nnodes=1 --nproc_per_node=4 tasks/trainer.py --config ./
 
 
 # 싱글 GPU or CPU 학습
- python tasks/trainer.py --config ./configs/example.yaml
+python tasks/trainer.py --config ./configs/example.yaml
 
 
 # 추론
