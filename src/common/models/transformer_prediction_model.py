@@ -19,7 +19,6 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-
 @dataclass
 class TransformerPredictionConfig:
     input_dim: int                  # 입력 피처 차원(F)
@@ -35,7 +34,6 @@ class TransformerPredictionConfig:
     max_len: int = 4096
     output_dim: int = 1             # 회귀 출력 차원 (기본 1)
     input_norm: bool = False        # 입력 정규화 레이어 사용할지 여부
-
 
 class PositionalEncoding(nn.Module):
     """Sinusoidal positional encoding."""
@@ -64,7 +62,6 @@ class PositionalEncoding(nn.Module):
             )
         x = x + self.pe[:, :x.size(1), :]
         return self.dropout(x)
-
 
 class RegressionHead(nn.Module):
     def __init__(self, d_model: int, output_dim: int = 1, dropout: float = 0.1):

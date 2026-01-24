@@ -23,7 +23,6 @@ import torch
 from torch.nn.utils.rnn import pad_sequence
 from torch.utils.data import Dataset, DataLoader, DistributedSampler
 
-
 def _safe_parse_sequence(text: Union[str, List[List[float]]]) -> List[List[float]]:
     """
     문자열 또는 이미 파싱된 리스트를 안전하게 2D float 리스트로 변환.
@@ -40,10 +39,8 @@ def _safe_parse_sequence(text: Union[str, List[List[float]]]) -> List[List[float
         raise ValueError(f"Sequence format must be list of list, got: {type(val)} {val[:50] if isinstance(val, list) else val}")
     return val
 
-
 def _to_tensor2d(arr: List[List[float]]) -> torch.Tensor:
     return torch.tensor(arr, dtype=torch.float32)
-
 
 class SequenceRegressionDataset(Dataset):
     """
