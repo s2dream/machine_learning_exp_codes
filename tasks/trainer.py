@@ -39,11 +39,11 @@ from torch.cuda.amp import GradScaler, autocast
 # ------------------------------
 def _import_dataloader_module() -> Any:
     """
-    dataloaders/dataloader_v1.0.py 를 안전하게 importlib로 로드.
+    dataloaders/dataloader_v1.py 를 안전하게 importlib로 로드.
     반환: 모듈 객체 (DataloaderHelper, LoaderConfig, ... 사용 가능)
     """
     root = Path(__file__).resolve().parents[1]
-    dl_path = root / "dataloaders" / "dataloader_v1.0.py"
+    dl_path = root / "dataloaders" / "dataloader_v1.py"
     if not dl_path.exists():
         raise FileNotFoundError(f"Not found: {dl_path}")
     spec = importlib.util.spec_from_file_location("dataloader_v1_0", str(dl_path))
@@ -352,7 +352,7 @@ class Trainer:
     # --------------------------
     def _build_model_optimizer(self):
         # 모델 import
-        from models.transformer_prediction_model import TransformerPredictionModel, TransformerPredictionConfig
+        from src.common.models.transformer_prediction_model import TransformerPredictionModel, TransformerPredictionConfig
 
         model_cfg = TransformerPredictionConfig(**self.model_cfg_dict)
         model = TransformerPredictionModel(model_cfg).to(self.device)

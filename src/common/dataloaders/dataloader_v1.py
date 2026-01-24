@@ -1,4 +1,4 @@
-# dataloaders/dataloader_v1.0.py
+# dataloaders/dataloader_v1.py
 # -*- coding: utf-8 -*-
 """
 시퀀스 회귀용 Dataset + Collator + DataloaderHelper

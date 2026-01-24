@@ -17,7 +17,7 @@ import argparse
 import csv
 import importlib.util
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any, Dict
 
 import yaml
 import torch
@@ -26,7 +26,7 @@ from torch.cuda.amp import autocast
 
 def _import_dataloader_module() -> Any:
     root = Path(__file__).resolve().parents[1]
-    dl_path = root / "dataloaders" / "dataloader_v1.0.py"
+    dl_path = root / "dataloaders" / "dataloader_v1.py"
     spec = importlib.util.spec_from_file_location("dataloader_v1_0", str(dl_path))
     module = importlib.util.module_from_spec(spec)
     assert spec and spec.loader
@@ -52,7 +52,7 @@ class Inferencer:
         self.DataloaderHelper = dlmod.DataloaderHelper
 
         # build model
-        from models.transformer_prediction_model import TransformerPredictionModel, TransformerPredictionConfig
+        from src.common.models.transformer_prediction_model import TransformerPredictionModel, TransformerPredictionConfig
 
         model_cfg = TransformerPredictionConfig(**cfg["model"])
         self.model = TransformerPredictionModel(model_cfg).to(self.device)

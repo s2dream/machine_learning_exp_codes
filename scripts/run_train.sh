@@ -8,7 +8,3 @@ torchrun --standalone --nnodes=1 --nproc_per_node=4 tasks/trainer.py --config ./
 python tasks/trainer.py --config ./configs/example.yaml
 
 
-# 추론
-python tasks/inference.py --config ./configs/example.yaml \
-  --checkpoint ./checkpoints/best.pth \
-  --output ./preds.csv
